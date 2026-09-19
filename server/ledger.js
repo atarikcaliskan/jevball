@@ -156,7 +156,13 @@ export class Ledger {
     return {
       granted_usd: s.granted / NANO,
       purchased_usd: s.purchased / NANO,
-      remaining_usd: remaining / NANO,
+      // What has not been charged yet. It only ever goes down (or up on a
+      // top-up): worst-case holds of requests still in flight are not counted
+      // here, or the readout would dip on every call and climb back when the
+      // call settles to its real, smaller cost.
+      remaining_usd: (s.granted + s.purchased - s.spent) / NANO,
+      // What a new request can reserve right now: remaining minus those holds.
+      available_usd: remaining / NANO,
       spent_usd: s.spent / NANO,
       exhausted: remaining < worst,
     };

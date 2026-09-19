@@ -202,6 +202,7 @@ test("status: signed out, signed in, stale session — never 401", async () => {
     granted_usd: 0.1,
     purchased_usd: 0,
     remaining_usd: 0.1,
+    available_usd: 0.1,
     spent_usd: 0,
     exhausted: false,
   });

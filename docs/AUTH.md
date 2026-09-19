@@ -41,7 +41,10 @@ Every response gets `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-refe
   credits: Credits | null,
   grant_usd,                                   // what a new account receives (PLAY_GRANT_USD)
   configured, model, pricing }
-Credits = { granted_usd, purchased_usd, remaining_usd, spent_usd, exhausted:boolean }
+Credits = { granted_usd, purchased_usd, remaining_usd, available_usd, spent_usd, exhausted:boolean }
+// remaining_usd = granted + purchased − spent: what has not been charged yet. It is the number the HUD
+//   shows and it never rises when a call settles. available_usd = remaining minus the worst-case holds
+//   of calls still in flight: what the next call can reserve, and what `exhausted` is judged on.
 ```
 
 ### `/api/decide` errors (hosted)

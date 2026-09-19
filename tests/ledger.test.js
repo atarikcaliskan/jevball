@@ -141,7 +141,12 @@ const balanced = (ledger) => {
   const remaining = s.granted + s.purchased - s.spent - held;
   for (const n of [s.granted, s.purchased, s.spent, remaining])
     assert.ok(Number.isSafeInteger(n) && n >= 0, `money ${n}`);
-  assert.equal(Math.round(ledger.credits().remaining_usd * 1e9), remaining);
+  // `available_usd` is what can be reserved now (holds subtracted); `remaining_usd`
+  // is what has not been charged yet, so it never rises when a call settles.
+  const credits = ledger.credits();
+  assert.equal(Math.round(credits.available_usd * 1e9), remaining);
+  assert.equal(Math.round(credits.remaining_usd * 1e9), s.granted + s.purchased - s.spent);
+  assert.ok(credits.remaining_usd >= credits.available_usd);
   return remaining;
 };
 
@@ -164,6 +169,7 @@ test("the grant happens once; identity is pinned; profile updates", async () => 
       granted_usd: 0.1,
       purchased_usd: 0,
       remaining_usd: 0.1,
+      available_usd: 0.1,
       spent_usd: 0,
       exhausted: false,
     },
@@ -207,6 +213,29 @@ test("reserve → settle: the hold is visible in flight, then only usage is char
     reserved: 0,
     spent: 71_442,
   });
+});
+
+test("the balance shown to the player never rises when overlapping calls settle", async () => {
+  // Two calls overlap, as in a real match. Each response is a snapshot taken
+  // while the other call's worst-case hold is still open; counting that hold
+  // in `remaining_usd` made the HUD's credit dip and then climb back.
+  const w = await world();
+  const shown = [w.ledger.credits().remaining_usd];
+  const one = await w.begin(1);
+  shown.push(w.ledger.credits().remaining_usd);
+  w.clock.t += 150;
+  const two = await w.begin(2);
+  shown.push(w.ledger.credits().remaining_usd);
+  assert.equal(w.ledger.credits().available_usd, (nano(0.1) - 2 * RESERVE) / 1e9);
+  await one.call.finish(1701);
+  shown.push((await one.promise).body.credits.remaining_usd);
+  await two.call.finish(1650);
+  shown.push((await two.promise).body.credits.remaining_usd);
+  shown.push(w.ledger.credits().remaining_usd);
+  for (let i = 1; i < shown.length; i++)
+    assert.ok(shown[i] <= shown[i - 1], `credit rose: ${shown.join(" → ")}`);
+  assert.equal(shown.at(-1), w.ledger.credits().available_usd); // nothing left in flight
+  assert.ok(shown.at(-1) < 0.1);
 });
 
 test("a single legal option costs nothing and skips the guard", async () => {
@@ -487,6 +516,7 @@ test("topUp is idempotent by order_id and tracked as purchased", async () => {
     granted_usd: 0.1,
     purchased_usd: 1,
     remaining_usd: 1.1,
+    available_usd: 1.1,
     spent_usd: 0,
     exhausted: false,
   });
