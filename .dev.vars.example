@@ -1,0 +1,13 @@
+# Local `npm run dev:worker` (wrangler dev) only. Copy to `.dev.vars`; never commit it.
+# Overrides the APP_ORIGIN var of wrangler.jsonc so cookies and OAuth callbacks use localhost.
+APP_ORIGIN=http://localhost:8787
+TYPESAFE_API_KEY=your_key_here
+# At least 32 random characters: openssl rand -base64 48
+SESSION_SECRET=
+# OAuth apps whose callback is http://localhost:8787/api/auth/<provider>/callback
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+# Optional: enables POST /api/admin/topup (at least 32 characters).
+# ADMIN_TOKEN=

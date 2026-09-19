@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0a120e" />
+    <meta
+      name="description"
+      content="A football match where each of the 22 players is an independent Jev decision-maker. Watch the match, inspect every decision, or take control of a player. Powered by Jev from TypeSafe AI."
+    />
+    <meta name="author" content="atarikcaliskan" />
+    <title>JevBall — 22 Jev models, one match</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JevBall" />
+    <meta property="og:title" content="JevBall — 22 Jev models, one match" />
+    <meta
+      property="og:description"
+      content="A football match where each of the 22 players is an independent Jev decision-maker. Watch, inspect every decision, or take control of a player."
+    />
+    <link rel="icon" type="image/svg+xml" href="/brand/jevball-mark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
+    />
+    <style>
+      /* Inline so the loader paints before any module loads. Mirrors src/theme.css. */
+      html {
+        background: #0a120e;
+      }
+      #scene-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 14px;
+        padding: 24px;
+        background:
+          repeating-linear-gradient(90deg, #ffffff05 0 90px, transparent 90px 180px),
+          #0a120e;
+        color: #f4f1e8;
+        font:
+          500 12px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        text-align: center;
+      }
+      #scene-loader[hidden],
+      #scene-loader [hidden] {
+        display: none;
+      }
+      #scene-loader strong {
+        font:
+          700 30px/1 "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      #scene-loader p {
+        margin: 0;
+        color: #a9b5ab;
+      }
+      .loading-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font:
+          700 16px/1 "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.16em;
+        color: #a9b5ab;
+      }
+      .loading-brand img {
+        width: 20px;
+        height: 20px;
+      }
+      /* Centre circle: chalk ring, halfway line, centre spot, a floodlight arc running round it. */
+      .loading-spinner {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        margin: 10px 0 8px;
+        border: 2px solid #f4f1e84d;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, #f4f1e8 0 3px, transparent 3.5px),
+          linear-gradient(90deg, transparent calc(50% - 1px), #f4f1e84d calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
+      }
+      .loading-spinner::before {
+        content: "";
+        position: absolute;
+        left: calc(50% - 1px);
+        top: -22px;
+        bottom: -22px;
+        width: 2px;
+        background: #f4f1e84d;
+        z-index: -1;
+      }
+      .loading-spinner::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border: 2px solid transparent;
+        border-top-color: #ffe14a;
+        border-right-color: #ffe14a;
+        border-radius: 50%;
+        animation: loading-spin 1s linear infinite;
+      }
+      #loading-retry {
+        border: 0;
+        border-radius: 3px;
+        padding: 12px 22px;
+        background: #ffe14a;
+        color: #0a120e;
+        font:
+          700 16px/1 "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      #loading-retry:focus-visible {
+        outline: 2px solid #ffe14a;
+        outline-offset: 3px;
+      }
+      @keyframes loading-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .loading-spinner::after {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="loading">
+    <div id="scene-loader" role="status" aria-live="polite">
+      <span class="loading-brand"><img src="/brand/jevball-mark.svg" alt="" />JEVBALL</span>
+      <span class="loading-spinner" aria-hidden="true"></span>
+      <strong>Getting the stadium ready</strong>
+      <p id="loading-message">Loading JevBall…</p>
+      <button id="loading-retry" hidden>Try again</button>
+    </div>
+    <div id="app" inert aria-busy="true"></div>
+    <script type="module" src="/src/bootstrap.js"></script>
+  </body>
+</html>

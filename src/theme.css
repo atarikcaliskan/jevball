@@ -1,0 +1,21 @@
+/* Matchday broadcast — shared tokens for the landing page and the match HUD. See docs/THEME.md. */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap");
+:root {
+  --ink: #0a120e;
+  --panel: #0f1b15e6;
+  --panel-solid: #0f1b15;
+  --panel-line: #ffffff1f;
+  --turf: #14502c;
+  --turf-bright: #1f8a46;
+  --chalk: #f4f1e8;
+  --chalk-dim: #a9b5ab;
+  --flood: #ffe14a;
+  --home: #e82127;
+  --away: #3e6ae1;
+  --risk: #ff8a3c;
+  --shot: #ff4d3d;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --skew: -12deg;
+}

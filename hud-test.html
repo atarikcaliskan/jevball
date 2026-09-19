@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>JevBall HUD harness (mock match)</title>
+    <link rel="icon" type="image/svg+xml" href="/brand/jevball-mark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
+    />
+    <style>
+      /* Inline so the loader paints before any module loads. Mirrors src/theme.css. */
+      html {
+        background: #0a120e;
+      }
+      #scene-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 14px;
+        padding: 24px;
+        background:
+          repeating-linear-gradient(90deg, #ffffff05 0 90px, transparent 90px 180px),
+          #0a120e;
+        color: #f4f1e8;
+        font:
+          500 12px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        text-align: center;
+      }
+      #scene-loader[hidden],
+      #scene-loader [hidden] {
+        display: none;
+      }
+      #scene-loader strong {
+        font:
+          700 30px/1 "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      #scene-loader p {
+        margin: 0;
+        color: #a9b5ab;
+      }
+      .loading-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font:
+          700 16px/1 "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.16em;
+        color: #a9b5ab;
+      }
+      .loading-brand img {
+        width: 20px;
+        height: 20px;
+      }
+      /* Centre circle: chalk ring, halfway line, centre spot, a floodlight arc running round it. */
+      .loading-spinner {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        margin: 10px 0 8px;
+        border: 2px solid #f4f1e84d;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, #f4f1e8 0 3px, transparent 3.5px),
+          linear-gradient(90deg, transparent calc(50% - 1px), #f4f1e84d calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
+      }
+      .loading-spinner::before {
+        content: "";
+        position: absolute;
+        left: calc(50% - 1px);
+        top: -22px;
+        bottom: -22px;
+        width: 2px;
+        background: #f4f1e84d;
+        z-index: -1;
+      }
+      .loading-spinner::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border: 2px solid transparent;
+        border-top-color: #ffe14a;
+        border-right-color: #ffe14a;
+        border-radius: 50%;
+        animation: loading-spin 1s linear infinite;
+      }
+      #loading-retry {
+        border: 0;
+        border-radius: 3px;
+        padding: 12px 22px;
+        background: #ffe14a;
+        color: #0a120e;
+        font:
+          700 16px/1 "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      #loading-retry:focus-visible {
+        outline: 2px solid #ffe14a;
+        outline-offset: 3px;
+      }
+      @keyframes loading-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .loading-spinner::after {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="loading">
+    <!--
+      Mounts the real HUD (src/main.js) on mock Simulation / MatchScene /
+      DecisionLoop classes from src/hud-mock.js. Not part of the build.
+      Params: ?jev=1 (pretend Jev is connected), ?warm=SECONDS (pre-run the
+      mock match), ?state=focus|playing|paused|help|inspector|fulltime|halftime|goal|toast|error
+      ?hosted=out|in|low|exhausted  hosted sign-in HUD with a mocked /api/status
+      plus everything play.html accepts (?seed= ?half= ?cam= ?speed= ?arrows=).
+    -->
+    <div id="scene-loader" role="status">
+      <span class="loading-spinner" aria-hidden="true"></span>
+      <strong>HUD harness</strong>
+      <p id="loading-message">Loading…</p>
+      <button id="loading-retry" hidden>Try again</button>
+    </div>
+    <div id="app" inert aria-busy="true"></div>
+    <script type="module">
+      import * as mock from "/src/hud-mock.js";
+      const params = new URLSearchParams(location.search);
+      const jev = params.get("jev") === "1";
+      globalThis.__JEVBALL_MODULES__ = mock;
+      // No server needed: answer /api/status (and the hosted auth routes) locally.
+      // ?hosted=out|in|low|exhausted previews the hosted sign-in HUD (docs/AUTH.md).
+      let hosted = params.get("hosted");
+      const left = { in: 0.0808, low: 0.0142, exhausted: 0.0003 };
+      const status = () => ({
+        configured: jev || ["in", "low"].includes(hosted),
+        model: "jev-latest",
+        pricing: { input_per_million: 0.042, output_per_million: 0 },
+        ...(hosted && {
+          auth_required: true,
+          authenticated: hosted !== "out",
+          providers: ["github", "google"],
+          user: hosted === "out" ? null : { id: "gh_583231", name: "Ada Lovelace", avatar_url: null, provider: "github" },
+          credits:
+            hosted === "out"
+              ? null
+              : { granted_usd: 0.1, purchased_usd: 0, remaining_usd: left[hosted], spent_usd: 0.1 - left[hosted], exhausted: hosted === "exhausted" },
+        }),
+      });
+      const json = (body, init) =>
+        Promise.resolve(new Response(JSON.stringify(body), { ...init, headers: { "Content-Type": "application/json" } }));
+      const realFetch = globalThis.fetch.bind(globalThis);
+      globalThis.fetch = (url, ...rest) => {
+        const path = String(url);
+        if (path.startsWith("/api/status")) return json(status());
+        if (path.startsWith("/api/auth/logout")) return (hosted = "out"), json({ ok: true });
+        if (path.startsWith("/api/auth/"))
+          return json({ error: "Sign-in is not available in the HUD harness." }, { status: 503 });
+        return realFetch(url, ...rest);
+      };
+      const { app } = await import("/src/main.js");
+      await app.scene.ready;
+      while (document.body.classList.contains("loading"))
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      const warm = Number(params.get("warm") ?? 20);
+      for (let i = 0; i < warm * 60; i++) {
+        app.sim.step(1 / 60);
+        if (i % 15 === 0) app.loop.tick(i * 16.7);
+      }
+      const state = params.get("state");
+      const sim = app.sim;
+      if (state === "focus") app.setFocus(sim.owner()?.id ?? "h8");
+      if (state === "playing") app.setPlaying(true);
+      if (state === "paused") app.togglePause();
+      if (state === "help") document.getElementById("help").click();
+      if (state === "inspector") {
+        document.getElementById("scene-json").click();
+        const tab = params.get("tab");
+        if (tab) document.querySelector(`[data-tab="${tab}"]`)?.click();
+      }
+      if (state === "fulltime") {
+        sim.clock.half = 2;
+        sim.clock.elapsed = sim.clock.halfSeconds;
+      }
+      if (state === "halftime") sim.clock.elapsed = sim.clock.halfSeconds;
+      if (state === "goal") {
+        sim.score[0]++;
+        sim.phase = "goal";
+        sim.phaseT = 60;
+      }
+      if (state === "toast")
+        app.toast("No TYPESAFE_API_KEY — running on the local policy");
+      if (state === "error")
+        app.toast(
+          "Jev rate limit reached — players are using the local policy for a moment",
+          "error",
+        );
+      document.title = `ready · ${document.title}`;
+    </script>
+  </body>
+</html>

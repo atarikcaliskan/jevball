@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a120e" />
+  <meta name="color-scheme" content="dark" />
+  <title>JevBall — 22 Jev models, one match</title>
+  <meta name="description"
+    content="A 3D football match where each of the 22 players is its own Jev call: typed options in, probabilities out. Watch every decision, or press J and take over the number 9." />
+  <link rel="canonical" href="https://jevball.online/" />
+  <meta name="author" content="atarikcaliskan" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="JevBall" />
+  <meta property="og:title" content="JevBall — 22 Jev models, one match" />
+  <meta property="og:description"
+    content="A 3D football match where each of the 22 players is its own Jev call. Watch every decision, or take over a player yourself." />
+  <meta property="og:url" content="https://jevball.online/" />
+  <meta property="og:image" content="https://jevball.online/og/jevball-og.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"
+    content="JevBall: 22 models, one ball. A live 3D football match with decision arrows and probability chips." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://jevball.online/og/jevball-og.jpg" />
+  <meta name="twitter:creator" content="@atarikcaliskan" />
+  <link rel="icon" type="image/svg+xml" href="/brand/jevball-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    document.documentElement.classList.add("js");
+  </script>
+  <link rel="stylesheet" href="/src/landing.css" />
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bug-nav" id="nav">
+    <a class="bug-brand" href="#top" aria-label="JevBall, back to top">
+      <img src="/brand/jevball-mark.svg" alt="" width="28" height="28" />
+      <span>JevBall</span>
+    </a>
+    <nav class="bug-links" aria-label="Sections">
+      <a href="#decision">The decision</a>
+      <a href="#lineup">Line-up</a>
+      <a href="#touchline">Watch or play</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#run">Run it</a>
+      <a href="https://github.com/atarikcaliskan/jevball" target="_blank" rel="noopener noreferrer">Source ↗</a>
+    </nav>
+    <a class="slab slab-flood bug-cta" href="/play.html"><span>Watch the match</span></a>
+  </header>
+
+  <main id="main">
+    <!-- ============================================================ HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-stage" id="hero-stage" aria-hidden="true">
+        <svg class="hero-poster" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="mow" width="160" height="900" patternUnits="userSpaceOnUse">
+              <rect width="80" height="900" fill="#ffffff" opacity=".035" />
+            </pattern>
+            <marker id="ph" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7"
+              orient="auto-start-reverse">
+              <path d="M1 1 9 5 1 9" fill="none" stroke="context-stroke" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </marker>
+          </defs>
+          <rect width="1600" height="900" fill="#103d23" />
+          <rect width="1600" height="900" fill="url(#mow)" />
+          <g fill="none" stroke="#f4f1e8" stroke-width="4" opacity=".5">
+            <path d="M1000 -20V920" />
+            <circle cx="1000" cy="450" r="170" />
+            <path d="M1640 140H1420V760H1640" />
+            <path d="M1420 330A150 150 0 0 0 1420 570" />
+          </g>
+          <circle cx="1000" cy="450" r="7" fill="#f4f1e8" opacity=".6" />
+          <g fill="none" stroke-width="5" stroke-linecap="round">
+            <path d="M930 520C1010 470 1090 380 1180 300" stroke="#ffe14a" marker-end="url(#ph)" />
+            <path d="M930 520C1000 580 1100 640 1230 660" stroke="#f4f1e8" opacity=".6"
+              marker-end="url(#ph)" />
+            <path d="M930 520C900 430 880 360 900 270" stroke="#f4f1e8" opacity=".6"
+              marker-end="url(#ph)" />
+            <path d="M1215 395C1250 350 1290 330 1340 330" stroke="#f4f1e8" opacity=".5"
+              stroke-dasharray="4 14" marker-end="url(#ph)" />
+          </g>
+          <g class="poster-discs" stroke="#0a120e" stroke-width="4">
+            <circle cx="930" cy="520" r="20" fill="#e82127" />
+            <circle cx="1200" cy="410" r="20" fill="#e82127" />
+            <circle cx="1250" cy="665" r="20" fill="#e82127" />
+            <circle cx="900" cy="250" r="20" fill="#e82127" />
+            <circle cx="1080" cy="470" r="20" fill="#3e6ae1" />
+            <circle cx="1290" cy="450" r="20" fill="#3e6ae1" />
+            <circle cx="1310" cy="600" r="20" fill="#3e6ae1" />
+            <circle cx="1010" cy="300" r="20" fill="#3e6ae1" />
+            <circle cx="1560" cy="450" r="20" fill="#2fbf71" />
+          </g>
+          <circle cx="952" cy="538" r="9" fill="#f4f1e8" stroke="#0a120e" stroke-width="3" />
+        </svg>
+        <canvas id="hero-canvas" tabindex="-1"></canvas>
+        <div id="hero-labels"></div>
+        <div class="hero-scrim"></div>
+      </div>
+
+      <div class="hero-inner">
+        <p class="eyebrow hero-eyebrow"><span class="live-dot" aria-hidden="true"></span>Football
+          played by Jev, TypeSafe AI's System One model</p>
+        <h1 id="hero-title">
+          <span class="h1-line">22 models.</span>
+          <span class="h1-line">One ball<span class="ball-stop" aria-hidden="true"></span><span
+              class="visually-hidden">.</span></span>
+        </h1>
+        <p class="hero-lede">
+          Every player on this pitch is its own Jev call. A few times a second each one gets a typed
+          multiple-choice question<span class="lede-eg"> &mdash; shoot, pass to the 7, press, run in
+            behind &mdash;</span> and answers with
+          a probability for every option. Watch all 22 think, or press <kbd>J</kbd> and take the
+          number&nbsp;9 yourself.
+        </p>
+        <div class="hero-actions">
+          <a class="slab slab-flood slab-lg" href="/play.html"><span>Watch the match</span></a>
+          <a class="slab slab-chalk slab-lg" href="/play.html?play=1"><span>Take the
+              pitch</span></a>
+          <a class="text-link" href="#decision">How a decision is made <span
+              aria-hidden="true">&darr;</span></a>
+        </div>
+      </div>
+
+      <aside class="hero-bug" id="hero-bug" aria-label="Score of the background match">
+        <div class="hb-row">
+          <span class="hb-team hb-home"><i></i>JEV</span>
+          <span class="hb-score" id="hb-score">0&ndash;0</span>
+          <span class="hb-team hb-away">SYS<i></i></span>
+          <span class="hb-clock" id="hb-clock">0'</span>
+        </div>
+        <div class="hb-ticker" id="hb-ticker">Tactics-board preview</div>
+        <div class="hb-note" id="hb-note">Background match runs on the local policy. No API calls
+          from this page.</div>
+      </aside>
+    </section>
+
+    <!-- ======================================================== DECISION -->
+    <section class="sec sec-ink" id="decision" aria-labelledby="decision-title">
+      <div class="marking marking-centre" aria-hidden="true"></div>
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Tactics board</p>
+          <h2 id="decision-title">Every touch is a multiple&#8209;choice question.</h2>
+          <p class="sec-lede">
+            Jev doesn't invent moves. The simulation works out a player's realistic options locally
+            &mdash; at most 14 &mdash;
+            each with a short label and numeric features: distance, lane clearance, receiver space,
+            success estimate,
+            xG, ETA against the nearest opponent, offside margin. Jev picks among them and returns a
+            probability for each.
+          </p>
+        </header>
+
+        <div class="decision-grid">
+          <figure class="board reveal" aria-labelledby="board-cap">
+            <div class="board-tag"><b>h8</b> CM &middot; has the ball &middot; <span>kind:
+                carrier</span></div>
+            <svg class="board-svg" viewBox="0 0 600 470" role="img"
+              aria-label="Tactics board: midfielder h8 has the ball 29 metres from goal with five options drawn as chalk arrows. Through ball for h9 46 percent, pass to h7 27 percent, dribble left 13 percent, pass to h10 9 percent, shoot 5 percent.">
+              <defs>
+                <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5"
+                  markerHeight="6.5" orient="auto-start-reverse">
+                  <path d="M1 1 9 5 1 9" fill="none" stroke="context-stroke" stroke-width="1.9"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </marker>
+              </defs>
+              <g class="b-lines">
+                <path d="M-10 40H610" />
+                <path d="M98 40V205H502V40" />
+                <path d="M208 40V95H392V40" />
+                <path d="M227 205A91.5 91.5 0 0 0 373 205" />
+                <path d="M263 40V20H337V40" class="b-goal" />
+              </g>
+              <circle class="b-spot" cx="300" cy="150" r="3" />
+
+              <!-- off-the-ball run (dashed = movement) -->
+              <path class="b-run" d="M372 214C385 190 392 165 396 140" marker-end="url(#ah)" />
+
+              <g class="opt opt-shot" data-opt="shoot">
+                <path class="b-arrow" d="M289 315 326 47" marker-end="url(#ah)" />
+              </g>
+              <g class="opt" data-opt="pass_h10">
+                <path class="b-arrow" d="M273 320 226 240" marker-end="url(#ah)" />
+              </g>
+              <g class="opt opt-risk" data-opt="dribble_left">
+                <path class="b-arrow b-dribble" d="M268 334q-5-9-12-3t-12-3t-12-3t-12-3l-14-4"
+                  marker-end="url(#ah)" />
+              </g>
+              <g class="opt" data-opt="pass_h7">
+                <path class="b-arrow" d="M300 328C380 330 450 318 508 294" marker-end="url(#ah)" />
+              </g>
+              <g class="opt opt-selected" data-opt="through_h9">
+                <path class="b-arrow" d="M296 318C330 260 368 190 394 132" marker-end="url(#ah)" />
+              </g>
+
+              <!-- away (blue) -->
+              <g class="disc disc-away">
+                <g transform="translate(300 62)">
+                  <circle r="13" class="keeper-away" /><text y="4.5">1</text>
+                </g>
+                <g transform="translate(330 200)">
+                  <circle r="13" /><text y="4.5">4</text>
+                </g>
+                <g transform="translate(238 204)">
+                  <circle r="13" /><text y="4.5">5</text>
+                </g>
+                <g transform="translate(302 282)">
+                  <circle r="13" /><text y="4.5">6</text>
+                </g>
+                <g transform="translate(468 246)">
+                  <circle r="13" /><text y="4.5">3</text>
+                </g>
+                <g transform="translate(112 232)">
+                  <circle r="13" /><text y="4.5">2</text>
+                </g>
+                <g transform="translate(396 404)">
+                  <circle r="13" /><text y="4.5">8</text>
+                </g>
+              </g>
+              <!-- home (red) -->
+              <g class="disc disc-home">
+                <g transform="translate(366 228)">
+                  <circle r="13" /><text y="4.5">9</text>
+                </g>
+                <g transform="translate(216 228)">
+                  <circle r="13" /><text y="4.5">10</text>
+                </g>
+                <g transform="translate(524 288)">
+                  <circle r="13" /><text y="4.5">7</text>
+                </g>
+                <g transform="translate(84 300)">
+                  <circle r="13" /><text y="4.5">11</text>
+                </g>
+                <g transform="translate(190 420)">
+                  <circle r="13" /><text y="4.5">6</text>
+                </g>
+                <g transform="translate(285 332)" class="disc-carrier">
+                  <circle r="19" class="halo" />
+                  <circle r="13" /><text y="4.5">8</text>
+                </g>
+              </g>
+              <circle class="b-ball" cx="298" cy="348" r="5" />
+
+              <!-- probability chips (short form swaps in on small screens) -->
+              <g class="chip" data-opt="shoot" transform="translate(261 122)">
+                <g class="chip-in">
+                  <rect class="c-full" x="-33" y="-10" width="66" height="20" rx="3" /><text
+                    class="c-full" y="4">shoot 5%</text>
+                  <rect class="c-short" x="-20" y="-10" width="40" height="20" rx="3" /><text
+                    class="c-short" y="4">5%</text>
+                </g>
+              </g>
+              <g class="chip" data-opt="pass_h10" transform="translate(194 272)">
+                <g class="chip-in">
+                  <rect class="c-full" x="-44" y="-10" width="88" height="20" rx="3" /><text
+                    class="c-full" y="4">pass_h10 9%</text>
+                  <rect class="c-short" x="-20" y="-10" width="40" height="20" rx="3" /><text
+                    class="c-short" y="4">9%</text>
+                </g>
+              </g>
+              <g class="chip chip-risk" data-opt="dribble_left" transform="translate(154 354)">
+                <g class="chip-in">
+                  <rect class="c-full" x="-58" y="-10" width="116" height="20" rx="3" /><text
+                    class="c-full" y="4">dribble_left 13%</text>
+                  <rect class="c-short" x="-20" y="-10" width="40" height="20" rx="3" /><text
+                    class="c-short" y="4">13%</text>
+                </g>
+              </g>
+              <g class="chip" data-opt="pass_h7" transform="translate(464 350)">
+                <g class="chip-in">
+                  <rect class="c-full" x="-44" y="-10" width="88" height="20" rx="3" /><text
+                    class="c-full" y="4">pass_h7 27%</text>
+                  <rect class="c-short" x="-20" y="-10" width="40" height="20" rx="3" /><text
+                    class="c-short" y="4">27%</text>
+                </g>
+              </g>
+              <g class="chip chip-selected" data-opt="through_h9" transform="translate(466 162)">
+                <g class="chip-in">
+                  <rect class="c-full" x="-58" y="-12" width="116" height="24" rx="3" /><text
+                    class="c-full" y="4">through_h9 46%</text>
+                  <rect class="c-short" x="-20" y="-10" width="40" height="20" rx="3" /><text
+                    class="c-short" y="4">46%</text>
+                </g>
+              </g>
+            </svg>
+            <ul class="board-options" aria-hidden="true">
+              <li class="is-sel" data-opt="through_h9">through_h9 <b>46%</b></li>
+              <li data-opt="pass_h7">pass_h7 <b>27%</b></li>
+              <li class="is-risk" data-opt="dribble_left">dribble_left <b>13%</b></li>
+              <li data-opt="pass_h10">pass_h10 <b>9%</b></li>
+              <li class="is-shot" data-opt="shoot">shoot <b>5%</b></li>
+            </ul>
+            <figcaption id="board-cap">
+              <span class="key"><i class="k-line k-sel"></i>chosen</span>
+              <span class="key"><i class="k-line"></i>option</span>
+              <span class="key"><i class="k-line k-risk"></i>risky</span>
+              <span class="key"><i class="k-line k-shot"></i>shot</span>
+              <span class="key"><i class="k-line k-run"></i>run</span>
+              <span class="cap-note">Illustrative position and probabilities. In the match these are
+                3D ribbons on the grass.</span>
+            </figcaption>
+          </figure>
+
+          <div class="code-slab reveal" id="code-slab">
+            <div class="code-tabs" role="tablist" aria-label="Jev request and response">
+              <button role="tab" id="tab-q" aria-controls="pane-q" aria-selected="true">The
+                question</button>
+              <button role="tab" id="tab-a" aria-controls="pane-a" aria-selected="false"
+                tabindex="-1">The answer</button>
+              <span class="code-path">POST /v1/systemone</span>
+            </div>
+            <div class="code-pane" id="pane-q" role="tabpanel" aria-labelledby="tab-q" tabindex="0">
+              <pre><code><span class="c-p">{</span> <span class="c-k">"model"</span>: <span class="c-s">"jev-latest"</span>,
+  <span class="c-k">"state"</span>: <span class="c-p">{</span> <span class="c-c">/* sent once per call: clock, score, ball,
+             22 player rows, each asker's option table */</span> <span class="c-p">}</span>,
+  <span class="c-k">"questions"</span>: <span class="c-p">{</span>
+    <span class="c-k">"h8"</span>: <span class="c-p">{</span>
+      <span class="c-k">"type"</span>: <span class="c-s">"choice"</span>,
+      <span class="c-k">"instructions"</span>: <span class="c-s">"You are h8 (home CM). You have
+        the ball. Choose the action most likely to
+        lead to a goal for your team without losing
+        the ball cheaply."</span>,
+      <span class="c-k">"criteria"</span>: <span class="c-p">{</span>
+<span class="c-line" data-opt="through_h9">        <span class="c-k">"through_h9"</span>: <span class="c-s">"Through ball for h9 (ST) · 23 m · open"</span>,</span>
+<span class="c-line" data-opt="pass_h7">        <span class="c-k">"pass_h7"</span>: <span class="c-s">"Pass to h7 (RM) · 24 m · open"</span>,</span>
+<span class="c-line" data-opt="dribble_left">        <span class="c-k">"dribble_left"</span>: <span class="c-s">"Dribble left · 7 m space"</span>,</span>
+<span class="c-line" data-opt="pass_h10">        <span class="c-k">"pass_h10"</span>: <span class="c-s">"Pass to h10 (ST) · 13 m · tight"</span>,</span>
+<span class="c-line" data-opt="shoot">        <span class="c-k">"shoot"</span>: <span class="c-s">"Shoot · 29 m · xG 0.03"</span></span>
+      <span class="c-p">}</span>
+    <span class="c-p">}</span>,
+    <span class="c-k">"a6"</span>: <span class="c-p">{</span> <span class="c-c">/* press, mark_h9, cover, shape … */</span> <span class="c-p">}</span>,
+    <span class="c-k">"h9"</span>: <span class="c-p">{</span> <span class="c-c">/* run_behind, support_near … */</span> <span class="c-p">}</span>
+  <span class="c-p">}</span>
+<span class="c-p">}</span></code></pre>
+            </div>
+            <div class="code-pane" id="pane-a" role="tabpanel" aria-labelledby="tab-a" tabindex="0"
+              hidden>
+              <pre><code><span class="c-p">{</span> <span class="c-k">"model"</span>: <span class="c-s">"jev-latest"</span>,
+  <span class="c-k">"answers"</span>: <span class="c-p">{</span>
+    <span class="c-k">"h8"</span>: <span class="c-p">{</span>
+      <span class="c-k">"choice"</span>: <span class="c-s">"through_h9"</span>,
+      <span class="c-k">"probabilities"</span>: <span class="c-p">{</span>
+<span class="c-line" data-opt="through_h9">        <span class="c-k">"through_h9"</span>: <span class="c-n">0.46</span>,</span>
+<span class="c-line" data-opt="pass_h7">        <span class="c-k">"pass_h7"</span>: <span class="c-n">0.27</span>,</span>
+<span class="c-line" data-opt="dribble_left">        <span class="c-k">"dribble_left"</span>: <span class="c-n">0.13</span>,</span>
+<span class="c-line" data-opt="pass_h10">        <span class="c-k">"pass_h10"</span>: <span class="c-n">0.09</span>,</span>
+<span class="c-line" data-opt="shoot">        <span class="c-k">"shoot"</span>: <span class="c-n">0.05</span></span>
+      <span class="c-p">}</span>,
+      <span class="c-k">"confidence"</span>: <span class="c-c">/* number */</span>
+    <span class="c-p">}</span>,
+    <span class="c-k">"a6"</span>: <span class="c-p">{</span> <span class="c-c">/* … */</span> <span class="c-p">}</span>,
+    <span class="c-k">"h9"</span>: <span class="c-p">{</span> <span class="c-c">/* … */</span> <span class="c-p">}</span>
+  <span class="c-p">}</span>,
+  <span class="c-k">"usage"</span>: <span class="c-p">{</span> <span class="c-k">"input_tokens"</span>: <span class="c-c">/* billed */</span>,
+             <span class="c-k">"output_tokens"</span>: <span class="c-c">/* free */</span> <span class="c-p">}</span>
+<span class="c-p">}</span></code></pre>
+            </div>
+            <p class="code-foot">Request shape from the JevBall source. Values are an illustrative
+              example, not a recorded call. Point at an arrow or a line to match them up.</p>
+          </div>
+        </div>
+
+        <ol class="move" aria-label="How one decision travels">
+          <li class="move-step reveal">
+            <span class="move-disc" aria-hidden="true">1</span>
+            <h3>Options are computed locally</h3>
+            <p>Geometry, physics and candidate generation never leave the simulation. Offside passes
+              aren't offered at all; a decision with one legal option is never sent.</p>
+          </li>
+          <li class="move-step reveal">
+            <span class="move-disc" aria-hidden="true">2</span>
+            <h3>One batched Jev call</h3>
+            <p>Everyone whose decision is due shares a single request: match state once, then one
+              question per player. Up to 10 per batch, at most 2 requests in flight. Your API key
+              stays on the dev server.</p>
+          </li>
+          <li class="move-step reveal">
+            <span class="move-disc" aria-hidden="true">3</span>
+            <h3>The choice is applied</h3>
+            <p>The picked option becomes the player's intent and kicks happen immediately. If an
+              answer is late &mdash; 0.9&nbsp;s, or 0.45&nbsp;s for the ball carrier &mdash; the
+              local policy steps in. Play never stalls.</p>
+          </li>
+          <li class="move-reflex reveal">
+            <span class="reflex-glyph" aria-hidden="true">&times;</span>
+            <h3>Reflexes never wait</h3>
+            <p>Meeting a pass, keeper saves, the first touch, restart distances: plain rules in the
+              simulation. A model round trip is too slow for them, and there is nothing to choose.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========================================================= LINE-UP -->
+    <section class="sec sec-turf" id="lineup" aria-labelledby="lineup-title">
+      <div class="wrap">
+        <header class="sec-head sec-head-split reveal">
+          <div>
+            <p class="eyebrow">Team sheet</p>
+            <h2 id="lineup-title">22 &times; Jev<span class="ball-stop" aria-hidden="true"></span>
+            </h2>
+          </div>
+          <p class="sec-lede">
+            No manager model calls the plays. Each disc is its own question, with its own options
+            and its own
+            probabilities: eleven for Jev United in a 4-4-2, eleven for System One FC in a 4-3-3.
+            Whatever
+            teamwork you see comes out of 22 separate answers.
+          </p>
+        </header>
+
+        <div class="lineup reveal">
+          <div class="sheet sheet-home">
+            <h3><i></i>Jev United <small>4-4-2 &middot; ids h1&ndash;h11</small></h3>
+            <ol id="sheet-home"></ol>
+          </div>
+          <div class="pitch-frame">
+            <div id="lineup-pitch" class="lineup-pitch"></div>
+          </div>
+          <div class="sheet sheet-away">
+            <h3><i></i>System One FC <small>4-3-3 &middot; ids a1&ndash;a11</small></h3>
+            <ol id="sheet-away"></ol>
+          </div>
+        </div>
+
+        <div class="lineup-foot reveal">
+          <div class="readout" aria-live="polite">
+            <span class="readout-label">Hover a disc</span>
+            <code
+              id="readout-code">questions.h9 &rarr; { type: "choice", instructions: "You are h9 (home ST). …", criteria: { ≤ 14 options } }</code>
+          </div>
+          <dl class="cadence">
+            <div>
+              <dt>Ball carrier</dt>
+              <dd>every 0.30 s</dd>
+            </div>
+            <div>
+              <dt>Within 15 m of the ball</dt>
+              <dd>every 0.55 s</dd>
+            </div>
+            <div>
+              <dt>Everyone else</dt>
+              <dd>every 1.2 s</dd>
+            </div>
+          </dl>
+        </div>
+        <p class="fine">Cadence is in match time. A turnover or a restart pulls everyone in at once,
+          slightly staggered.</p>
+      </div>
+    </section>
+
+    <!-- ====================================================== WATCH/PLAY -->
+    <section class="sec sec-ink" id="touchline" aria-labelledby="touchline-title">
+      <div class="marking marking-arc" aria-hidden="true"></div>
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Touchline</p>
+          <h2 id="touchline-title">Watch from the gantry. Or take the number&nbsp;9.</h2>
+        </header>
+
+        <div class="halves">
+          <div class="half half-watch reveal">
+            <h3 class="half-title"><span>Watch</span></h3>
+            <ul class="cams" aria-label="Cameras, cycled with C">
+              <li><svg viewBox="0 0 64 40" aria-hidden="true">
+                  <rect x="2" y="9" width="60" height="26" rx="1" />
+                  <path d="M32 9v26" />
+                  <circle cx="32" cy="22" r="6" />
+                  <path d="M6 3h52" class="cam-eye" />
+                </svg>Broadcast</li>
+              <li><svg viewBox="0 0 64 40" aria-hidden="true">
+                  <rect x="4" y="4" width="56" height="32" rx="1" />
+                  <path d="M32 4v32M4 12h8v16H4M60 12h-8v16h8" />
+                  <circle cx="32" cy="20" r="6" />
+                </svg>Tactical</li>
+              <li><svg viewBox="0 0 64 40" aria-hidden="true">
+                  <circle cx="32" cy="22" r="5" class="cam-fill" />
+                  <circle cx="32" cy="22" r="12" class="cam-eye" />
+                  <path d="M6 36 20 8h24l14 28" />
+                </svg>Follow</li>
+              <li><svg viewBox="0 0 64 40" aria-hidden="true">
+                  <path d="M14 36V12h36v24" />
+                  <path d="M14 12l6-6h24l6 6" class="cam-eye" />
+                  <path d="M2 36h60" />
+                </svg>Behind goal</li>
+            </ul>
+            <dl class="watch-list">
+              <div>
+                <dt><kbd>K</kbd> Decision arrows</dt>
+                <dd>The focused player's options drawn on the grass, with a probability chip on
+                  each.</dd>
+              </div>
+              <div>
+                <dt>Player card</dt>
+                <dd>Click a dot on the radar. Every option shows as a probability bar, with a mark
+                  on what the local policy would have picked, so you can compare the two.</dd>
+              </div>
+              <div>
+                <dt>Jev feed</dt>
+                <dd>A live ticker of decisions around the ball:
+                  <code>h8 CM &rarr; pass h9 &middot; 62%</code></dd>
+              </div>
+            </dl>
+            <div class="hood">
+              <div class="hood-head"><span class="hood-btn" aria-hidden="true">{ }</span><b>Under
+                  the hood</b></div>
+              <p>The exact Jev payload of the last batch, the response, every player's latest
+                decision, the full match state, and the session cost computed from the token usage
+                Jev reports. Live at 4&nbsp;Hz, with Freeze, Copy and Download.</p>
+            </div>
+          </div>
+
+          <div class="half half-play reveal">
+            <h3 class="half-title"><span>Play</span></h3>
+            <p class="half-lede">Press <kbd>J</kbd> and the home striker is yours. The other 21 stay
+              on Jev. Press it again to hand him back.</p>
+            <div class="keys" role="list" aria-label="Keyboard controls">
+              <div class="keyrow keyrow-hero" role="listitem"><span
+                  class="cap cap-flood">J</span><span class="keylabel">Take over #9 / hand back to
+                  Jev</span></div>
+              <div class="keyrow" role="listitem">
+                <span class="wasd" aria-label="W A S D"><span class="cap">W</span><span
+                    class="cap">A</span><span class="cap">S</span><span class="cap">D</span></span>
+                <span class="keylabel">Move, relative to the camera <small>arrow keys work
+                    too</small></span>
+              </div>
+              <div class="keyrow" role="listitem"><span class="cap cap-wide">Shift</span><span
+                  class="keylabel">Sprint</span></div>
+              <div class="keyrow" role="listitem"><span class="cap cap-space">Space</span><span
+                  class="keylabel">Pass</span></div>
+              <div class="keyrow" role="listitem"><span class="cap">F</span><span
+                  class="keylabel">Shoot <small>or Enter</small></span></div>
+              <div class="keyrow" role="listitem"><span class="cap">Q</span><span
+                  class="keylabel">Switch to the player nearest the ball</span></div>
+              <div class="keyrow keyrow-minor" role="listitem">
+                <span class="capset"><span class="cap">C</span><span class="cap">K</span><span
+                    class="cap">P</span></span>
+                <span class="keylabel">Camera &middot; arrows &middot; pause</span>
+              </div>
+            </div>
+            <p class="fine">On a phone a thumbstick appears with Pass, Shoot and Switch buttons.
+              Push the stick to the edge to sprint.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= NUMBERS -->
+    <section class="sec sec-turf sec-numbers" id="numbers" aria-labelledby="numbers-title">
+      <div class="wrap">
+        <header class="sec-head sec-head-split reveal">
+          <div>
+            <p class="eyebrow">Match stats</p>
+            <h2 id="numbers-title">Numbers, honestly labelled.</h2>
+          </div>
+          <p class="sec-lede">
+            Two kinds of figure on this board. A <b class="leg leg-solid">solid line</b> is
+            published by TypeSafe AI about Jev.
+            A <b class="leg leg-dash">dashed line</b> is JevBall's own measurement from one short
+            live run (30 match-seconds, 70 calls, September 2026) &mdash;
+            a single sample, not a benchmark.
+          </p>
+        </header>
+
+        <div class="stats">
+          <div class="stat-col reveal">
+            <h3 class="stat-src">Published by TypeSafe AI</h3>
+            <dl class="stat-list stat-solid">
+              <div>
+                <dd>70&ndash;500<small>ms</small></dd>
+                <dt>Response time per call</dt>
+              </div>
+              <div>
+                <dd>$0.042</dd>
+                <dt>Per million input tokens</dt>
+              </div>
+              <div>
+                <dd>$0</dd>
+                <dt>Output tokens are free</dt>
+              </div>
+              <div>
+                <dd>255</dd>
+                <dt>Choices per question, at most. JevBall uses 14.</dt>
+              </div>
+            </dl>
+          </div>
+          <div class="stat-col reveal">
+            <h3 class="stat-src">Measured by JevBall <em>one short run</em></h3>
+            <dl class="stat-list stat-dash">
+              <div>
+                <dd>366<small>ms</small></dd>
+                <dt>Average response per batched call, about six questions each</dt>
+              </div>
+              <div>
+                <dd>~1,700</dd>
+                <dt>Input tokens per call, as billed by Jev</dt>
+              </div>
+              <div>
+                <dd>~$0.01</dd>
+                <dt>Per match-minute with all 22 players on Jev</dt>
+              </div>
+              <div>
+                <dd>44<small>%</small></dd>
+                <dt>How often Jev picked what the local policy would have. It plays its own game.
+                </dt>
+              </div>
+            </dl>
+            <p class="fine">In a match, the dock shows the real session total from the token usage
+              Jev reports. On the hosted site, signed-in visitors get a small free credit of live
+              Jev on the house.</p>
+          </div>
+        </div>
+
+        <div class="nokey reveal">
+          <span class="nokey-tag">No key?</span>
+          <p><b>The local policy plays instead.</b> A utility + softmax over the same candidates
+            runs all 22 players. Free, and nothing is sent anywhere. It's also what's playing behind
+            the headline on this page.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= RUN -->
+    <section class="sec sec-ink" id="run" aria-labelledby="run-title">
+      <div class="marking marking-centre" aria-hidden="true"></div>
+      <div class="wrap run-grid">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Warm-up</p>
+          <h2 id="run-title">Four lines to kick&#8209;off.</h2>
+          <p class="sec-lede">
+            JevBall is local only: no login, no signup, no credits. Jev calls use your own TypeSafe
+            AI key and billing.
+            The key lives in a gitignored <code>.env</code> and never reaches the browser.
+          </p>
+          <ul class="run-notes">
+            <li>No key? Skip line three. The local policy plays all 22.</li>
+            <li>Opens on <code>localhost:5173</code></li>
+            <li><code>?seed=1234</code> replays the same match</li>
+            <li><code>?local=1</code> forces the local policy even with a key</li>
+          </ul>
+        </header>
+
+        <div class="term reveal">
+          <div class="term-bar">
+            <span class="term-title">~/jevball</span>
+            <button class="term-copy" id="copy-btn" type="button" aria-describedby="copy-status">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                <rect x="9" y="9" width="11" height="11" rx="1.5" />
+                <path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" />
+              </svg>
+              <span id="copy-label">Copy</span>
+            </button>
+            <span class="visually-hidden" id="copy-status" role="status"></span>
+          </div>
+          <pre id="term-code"><code><span class="t-p">$</span> git clone https://github.com/atarikcaliskan/jevball.git
+<span class="t-p">$</span> cd jevball
+<span class="t-p">$</span> npm ci
+<span class="t-p">$</span> cp .env.example .env
+<span class="t-c"># set TYPESAFE_API_KEY in .env</span>
+<span class="t-p">$</span> npm run dev</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================ FOOTER -->
+  <footer class="foot" aria-labelledby="foot-title">
+    <div class="wrap">
+      <div class="foot-top">
+        <p class="foot-ft" id="foot-title"><span>Full time</span></p>
+        <div class="foot-actions">
+          <a class="slab slab-flood" href="/play.html"><span>Watch the match</span></a>
+          <a class="slab slab-chalk" href="/play.html?play=1"><span>Take the pitch</span></a>
+        </div>
+      </div>
+      <ul class="credits">
+        <li><span>Inspired by</span><a href="https://github.com/standardagents/jevpilot"
+            target="_blank" rel="noopener noreferrer">JevPilot</a> by Standard Agents, the driving
+          demo this borrows its idea from</li>
+        <li><span>Decisions by</span><a href="https://typesafe.ai/" rel="noopener">Jev</a>, TypeSafe
+          AI's System One model</li>
+        <li><span>Grass, pavement, sky</span>CC0 assets from <a href="https://polyhaven.com"
+            rel="noopener">Poly Haven</a></li>
+        <li><span>Source code</span><a href="https://github.com/atarikcaliskan/jevball" target="_blank"
+            rel="noopener noreferrer">github.com/atarikcaliskan/jevball</a>, free for noncommercial use
+          (PolyForm Noncommercial 1.0.0)</li>
+      </ul>
+      <div class="gaffer">
+        <p class="gaffer-id">
+          <span class="gaffer-tag"><span>The gaffer</span></span>
+          <span class="gaffer-name">Created by <a href="https://github.com/atarikcaliskan"
+              target="_blank" rel="noopener noreferrer">@atarikcaliskan</a></span>
+        </p>
+        <ul class="gaffer-links" aria-label="Find the creator online">
+          <li><a href="https://x.com/atarikcaliskan" target="_blank" rel="noopener noreferrer"
+              aria-label="atarikcaliskan on X"><svg viewBox="0 0 24 24" width="18" height="18"
+                aria-hidden="true">
+                <path
+                  d="M17.75 3h3.07l-6.7 7.63L22 21h-6.17l-4.83-6.3L5.47 21H2.4l7.17-8.17L2 3h6.33l4.37 5.75L17.75 3Zm-1.08 16.17h1.7L7.4 4.73H5.58l11.09 14.44Z" />
+              </svg><span>X</span></a></li>
+          <li><a href="https://www.linkedin.com/in/atarikcaliskan" target="_blank"
+              rel="noopener noreferrer" aria-label="atarikcaliskan on LinkedIn"><svg
+                viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.83v1.54h.06c.53-1 1.84-1.85 3.78-1.85 4.04 0 4.83 2.5 4.83 5.9V21h-4v-5.02c0-1.2-.02-2.74-1.76-2.74-1.77 0-2.04 1.3-2.04 2.65V21h-4V9.75h-.7Z" />
+              </svg><span>LinkedIn</span></a></li>
+          <li><a href="https://github.com/atarikcaliskan" target="_blank" rel="noopener noreferrer"
+              aria-label="atarikcaliskan on GitHub"><svg viewBox="0 0 24 24" width="18" height="18"
+                aria-hidden="true">
+                <path
+                  d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+              </svg><span>GitHub</span></a></li>
+          <!-- Hidden until SUPPORT_URL in src/support.js is set; src/landing.js fills in the href. -->
+          <li data-support hidden><a class="gaffer-coffee" href="#" target="_blank"
+              rel="noopener noreferrer"><svg class="cup" viewBox="0 0 24 24" width="18" height="18"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z" />
+              </svg><span>Sponsor</span></a></li>
+        </ul>
+      </div>
+      <p class="disclaimer">
+        <img src="/brand/jevball-mark.svg" alt="" width="22" height="22" />
+        JevBall is an unofficial fan project &mdash; not affiliated with TypeSafe AI.
+      </p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/landing.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JevBall scene harness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #b7c9db;
+        font:
+          13px "DM Sans",
+          system-ui,
+          sans-serif;
+      }
+      #world-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #vector-labels {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      /* Harness-only stand-ins for the HUD's chip styles (src/style.css owns the real ones). */
+      .vector-label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid #ffffff1f;
+        border-radius: 3px;
+        background: #0f1b15e6;
+        color: #f4f1e8;
+        font:
+          500 10px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        padding: 3px 6px;
+        white-space: nowrap;
+        will-change: transform;
+      }
+      .vector-label.selected {
+        background: #ffe14a;
+        border-color: #ffe14a;
+        color: #0a120e;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 8px;
+      }
+      .vector-label.risky {
+        border-left: 3px solid #ff8a3c;
+      }
+      .vector-label.shot {
+        border-left: 3px solid #ff4d3d;
+      }
+      .vector-label.player-tag {
+        background: #0a120ef2;
+        color: #f4f1e8;
+        font:
+          600 11px "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 2px 7px;
+      }
+      .vector-label.player-tag.you {
+        background: #ffe14a;
+        border-color: #ffe14a;
+        color: #0a120e;
+        font-weight: 700;
+      }
+      #bar {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 5;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        background: #ffffffed;
+        border: 1px solid #e4e6e8cc;
+        border-radius: 12px;
+        padding: 8px 10px;
+        box-shadow: 0 6px 24px #171a2020;
+      }
+      #bar button {
+        font:
+          600 13px "Barlow Condensed",
+          "Arial Narrow",
+          sans-serif;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border: 0;
+        border-radius: 3px;
+        padding: 6px 12px;
+        background: #0a120e;
+        color: #fff;
+        cursor: pointer;
+      }
+      #bar span {
+        color: #6b7077;
+        font-variant-numeric: tabular-nums;
+        min-width: 190px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="world-canvas"></canvas>
+    <div id="vector-labels"></div>
+    <div id="bar">
+      <button id="cam">Camera</button><button id="cand">Arrows</button
+      ><button id="human">Human</button> <button id="goal">Cheer</button
+      ><button id="pause">Pause</button><span id="info">loading…</span>
+    </div>
+    <script type="module" src="/src/scene-test.js"></script>
+  </body>
+</html>

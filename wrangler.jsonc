@@ -1,0 +1,63 @@
+// Hosted JevBall on Cloudflare Workers. See docs/hosting.md for the full walkthrough.
+// Nothing in this file is secret; secrets are set with `npx wrangler secret put NAME`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jevball",
+  "main": "server/entry.js",
+  "compatibility_date": "2026-09-01",
+  // server/jev.js uses node:perf_hooks and Buffer.
+  "compatibility_flags": ["nodejs_compat"],
+
+  // The built site (`npm run build`). It is public and served straight from the
+  // asset store; only /api/* runs the Worker first.
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // One origin only: the custom domain. APP_ORIGIN below must stay identical to
+  // it. Forks: put your own hostname here (or remove `routes`, drop
+  // `workers_dev`, and point APP_ORIGIN at your workers.dev URL).
+  "routes": [{ "pattern": "jevball.online", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+
+  "durable_objects": {
+    "bindings": [
+      { "name": "PLAY_ACCOUNTS", "class_name": "PlayAccount" },
+      { "name": "SPEND_GUARD", "class_name": "SpendGuard" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["PlayAccount", "SpendGuard"] }
+  ],
+
+  // Sign-in starts: 20 per 60 s per IP. `namespace_id` is any integer that is
+  // unique among the rate limiters of your Cloudflare account; "1001" is a placeholder.
+  "ratelimits": [
+    {
+      "name": "AUTH_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 20, "period": 60 }
+    }
+  ],
+
+  "vars": {
+    // CHANGE ME: the one public origin of the deployment (scheme + host, no
+    // trailing slash). Requests on any other origin are redirected here, and
+    // the OAuth callback URLs are built from it.
+    "APP_ORIGIN": "https://jevball.online",
+    // USD per million tokens. The output price must stay 0: the Worker refuses
+    // to spend otherwise, because output tokens cannot be reserved for.
+    "JEV_INPUT_PRICE": "0.042",
+    "JEV_OUTPUT_PRICE": "0",
+    // One-time free play credit per new account, in USD.
+    "PLAY_GRANT_USD": "0.10",
+    // The most this deployment may spend on Jev per UTC day, over all players.
+    // This is YOUR maximum daily bill; lower it (e.g. "1") if unsure.
+    "DAILY_CAP_USD": "1"
+  },
+
+  "observability": { "enabled": true }
+}
