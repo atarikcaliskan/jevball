@@ -56,7 +56,7 @@
     "PLAY_GRANT_USD": "0.10",
     // The most this deployment may spend on Jev per UTC day, over all players.
     // This is YOUR maximum daily bill; lower it (e.g. "1") if unsure.
-    "DAILY_CAP_USD": "1"
+    "DAILY_CAP_USD": "5"
   },
 
   "observability": { "enabled": true }
